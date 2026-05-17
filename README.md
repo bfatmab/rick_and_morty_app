@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # rickandmorty_app
 
 A new Flutter project.
@@ -15,3 +16,27 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# Rick and Morty Flutter App
+
+A Flutter application using the Rick and Morty API.
+
+## Features
+
+- Character listing
+- Provider state management
+- MVVM architecture
+- Infinite scroll
+- Clean UI
+
+## Packages
+
+- provider
+- dio
+- go_router
+- get_it
+
+## API
+
+https://rickandmortyapi.com/
+>>>>>>> 550c8616cfa39f06236b31452d5ec84293c84c80
