@@ -1,13 +1,16 @@
-
 import 'package:flutter/material.dart';
 import 'package:rickandmorty_app/models/characters_model.dart';
 import 'package:rickandmorty_app/views/widgets/character_cardview.dart';
-import 'dart:developer';
 
 class CharacterCardListview extends StatefulWidget {
   final List<CharacterModel> characters;
+  final VoidCallback onLoadMore;
 
-  const CharacterCardListview({super.key, required this.characters});
+  const CharacterCardListview({
+    super.key,
+    required this.characters,
+    required this.onLoadMore,
+  });
 
   @override
   State<CharacterCardListview> createState() => _CharacterCardListviewState();
@@ -27,7 +30,7 @@ class _CharacterCardListviewState extends State<CharacterCardListview> {
       final currentPosition = _scrollController.position.pixels;
       const int delta = 200;
       if (maxScroll - currentPosition < delta) {
-        log('Scrolled down.');
+        widget.onLoadMore();
       }
     });
   }

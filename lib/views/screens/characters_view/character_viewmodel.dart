@@ -12,6 +12,20 @@ class CharactersViewModel extends ChangeNotifier {
   void getCharacter() async {
     _characterModel = await _apiService.getCharacters();
     notifyListeners();
-    print('object');
+  }
+
+  bool loadMore = false;
+
+  void getCharacterMore() async {
+    if (loadMore) return;
+    loadMore = true;
+    final data = await _apiService.getCharacters(
+      url: _characterModel?.info.next,
+    );
+    loadMore = false;
+    _characterModel!.info = data.info;
+    _characterModel!.results.addAll(data.results);
+        notifyListeners();
+
   }
 }

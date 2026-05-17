@@ -1,5 +1,5 @@
 class CharactersModel {
-  final CharacterInfos info;
+   CharacterInfos info;
   final List<CharacterModel> results;
 
   CharactersModel({

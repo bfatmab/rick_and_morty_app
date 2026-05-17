@@ -39,6 +39,9 @@ Widget build(BuildContext context) {
                 return CharacterCardListview(
                   characters:
                       viewModel.charactersModel!.results,
+                      onLoadMore: () => viewModel.getCharacterMore(),{
+                        
+                      },
                 );
               },
             ),
