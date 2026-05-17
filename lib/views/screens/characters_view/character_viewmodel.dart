@@ -9,27 +9,46 @@ class CharactersViewModel extends ChangeNotifier {
   CharactersModel? _characterModel;
   CharactersModel? get charactersModel => _characterModel;
 
+  void clearCharacters() {
+    _characterModel = null;
+    currentPageIndex = 1;
+    notifyListeners();
+  }
+
   void getCharacter() async {
     _characterModel = await _apiService.getCharacters();
     notifyListeners();
   }
 
   bool loadMore = false;
+  int currentPageIndex = 1;
 
-  void getCharacterMore() async {
+  void setloadMore(bool value) {
+    loadMore = value;
+    notifyListeners();
+  }
 
-  if (loadMore) return;
+  void getCharactersMore() async {
+    if (loadMore) return;
+    if (_characterModel!.info.pages == currentPageIndex) return;
 
-  loadMore = true;
+    loadMore = true;
+    setloadMore(true);
+    final data = await _apiService.getCharacters(
+      url: _characterModel?.info.next,
+    );
 
-  final data = await _apiService.getCharacters(
-    url: _characterModel?.info.next,
-  );
+    setloadMore(false);
+    currentPageIndex++;
+    _characterModel!.info = data.info;
+    _characterModel!.results.addAll(data.results);
 
-  loadMore = false;
+    notifyListeners();
+  }
 
-  _characterModel!.results.addAll(data.results);
-
-  notifyListeners();
-}
+  void getCharactersByname(String name) async {
+    clearCharacters();
+    _characterModel = await _apiService.getCharacters(args: {name: name});
+    notifyListeners();
+  }
 }

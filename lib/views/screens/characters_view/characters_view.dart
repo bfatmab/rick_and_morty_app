@@ -17,8 +17,12 @@ class _CharactersViewState extends State<CharactersView> {
     context.read<CharactersViewModel>().getCharacter();
   }
 
-@override
+ @override
 Widget build(BuildContext context) {
+
+  final viewModel =
+      context.watch<CharactersViewModel>();
+
   return Scaffold(
     body: Center(
       child: Padding(
@@ -27,34 +31,39 @@ Widget build(BuildContext context) {
           children: [
             const SizedBox(height: 12),
 
-            _searchInputwidget(context),
-
-            Consumer<CharactersViewModel>(
-              builder: (context, viewModel, child) {
-
-                if (viewModel.charactersModel == null) {
-                  return const CircularProgressIndicator.adaptive();
-                }
-
-                return CharacterCardListview(
-                  characters:
-                      viewModel.charactersModel!.results,
-                      onLoadMore: () => viewModel.getCharacterMore(),{
-                        
-                      },
-                );
-              },
+            _searchInputwidget(
+              context,
+              viewModel: viewModel,
             ),
+
+            if (viewModel.charactersModel == null)
+              const CircularProgressIndicator.adaptive()
+            else
+              CharacterCardListview(
+                characters:
+                    viewModel.charactersModel!.results,
+
+                onLoadMore: () =>
+                    viewModel.getCharactersMore(),
+
+                loadMore: viewModel.loadMore,
+              ),
           ],
         ),
       ),
     ),
   );
 }
-  Padding _searchInputwidget(BuildContext context) {
+
+  Widget _searchInputwidget(
+    BuildContext context, {
+    required CharactersViewModel viewModel,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(top: 12, bottom: 16),
-      child: TextField(
+      child: TextFormField(
+        textInputAction: TextInputAction.search,
+        onFieldSubmitted: viewModel.getCharactersByname,
         decoration: InputDecoration(
           labelText: 'Seach ın characters',
           labelStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface),

@@ -6,10 +6,12 @@ class CharacterCardListview extends StatefulWidget {
   final List<CharacterModel> characters;
   final VoidCallback onLoadMore;
 
+  final bool loadMore;
   const CharacterCardListview({
     super.key,
     required this.characters,
     required this.onLoadMore,
+    this.loadMore = false
   });
 
   @override
@@ -46,7 +48,14 @@ class _CharacterCardListviewState extends State<CharacterCardListview> {
         itemBuilder: (context, index) {
           final character = widget.characters[index];
 
-          return CharacterCardview(characterModel: character);
+          return Column(
+            children: [
+              CharacterCardview(characterModel: character),
+              if(widget.loadMore && index == widget.characters.length -1 )
+                const CircularProgressIndicator.adaptive(),
+              
+            ],
+          );
         },
       ),
     );

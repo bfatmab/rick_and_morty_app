@@ -5,9 +5,9 @@ import 'dart:developer';
 class ApiService {
   final _dio = Dio(BaseOptions(baseUrl: 'https://rickandmortyapi.com/api'));
 
-  Future<CharactersModel> getCharacters({String? url}) async {
+  Future<CharactersModel> getCharacters({String? url, Map<String , dynamic>? args}) async {
     try {
-      final response = await _dio.get(url ?? '/character');
+      final response = await _dio.get(url ?? '/character', queryParameters: args);
       log('Characters fetched successfully');
       return CharactersModel.fromJson(response.data);
     } on DioException catch (e) {
