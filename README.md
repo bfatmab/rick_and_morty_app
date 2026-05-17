@@ -1,2 +1,22 @@
-# rick_and_morty_app
-Rick and Morty character app built with Flutter.
+# Rick and Morty Flutter App
+
+A Flutter application using the Rick and Morty API.
+
+## Features
+
+- Character listing
+- Provider state management
+- MVVM architecture
+- Infinite scroll
+- Clean UI
+
+## Packages
+
+- provider
+- dio
+- go_router
+- get_it
+
+## API
+
+https://rickandmortyapi.com/
